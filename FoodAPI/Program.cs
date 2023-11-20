@@ -9,6 +9,9 @@ var connectionString = builder.Configuration.GetConnectionString("localhost");
 builder.Services.AddDbContext<AppDbContext>(o
     => o.UseSqlServer(connectionString));
 
+builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
