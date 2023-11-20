@@ -1,6 +1,13 @@
+using FoodAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("localhost");
+
+builder.Services.AddDbContext<AppDbContext>(o
+    => o.UseSqlServer(connectionString));
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
