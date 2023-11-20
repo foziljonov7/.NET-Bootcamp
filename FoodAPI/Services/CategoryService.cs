@@ -1,5 +1,6 @@
 ﻿using FoodAPI.Data;
 using FoodAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodAPI.Services
 {
@@ -11,19 +12,30 @@ namespace FoodAPI.Services
         {
             this.dbContext = dbContext;
         }
-        public Task<Category> GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            var category = await dbContext.Categorys
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category is null)
+                return null;
+
+            return category;
         }
 
-        public Task<List<Category>> GetCategorys()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<Category>> GetCategorys()
+            => await dbContext.Categorys.ToListAsync();
 
-        public Task<List<Food>> GetFoodCategorys(int id)
+        public async Task<List<Food>> GetFoodCategorys(int id)
         {
-            throw new NotImplementedException();
+            var foodCategory = await dbContext.Foods
+                .Where(f => f.CategoryId == id)
+                .ToListAsync();
+
+            if (foodCategory is null)
+                return null;
+
+            return foodCategory;
         }
     }
 }

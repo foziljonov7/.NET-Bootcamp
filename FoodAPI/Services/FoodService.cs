@@ -1,5 +1,6 @@
 ﻿using FoodAPI.Data;
 using FoodAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodAPI.Services
 {
@@ -11,29 +12,44 @@ namespace FoodAPI.Services
         {
             this.dbContext = dbContext;
         }
-        public Task<Food> CreateFood(Food newFood)
+        public async Task<Food> CreateFood(Food newFood)
         {
-            throw new NotImplementedException();
+            await dbContext.Foods.AddAsync(newFood);
+            await dbContext.SaveChangesAsync();
+            return newFood;
         }
 
         public bool DeleteFood(Guid id)
         {
-            throw new NotImplementedException();
+            var food =dbContext.Foods
+                .FirstOrDefault(f => f.Id == id);
+
+            if (food is null)
+                return false;
+
+            dbContext.Foods.Remove(food);
+            dbContext.SaveChanges();
+            return true;
         }
 
-        public Task<Food> GetFood(Guid id)
+        public async Task<Food> GetFood(Guid id)
         {
-            throw new NotImplementedException();
+            var food = await dbContext.Foods
+                .FirstOrDefaultAsync(f => f.Id == id);
+
+            if (food is null)
+                return null;
+
+            return food;
         }
 
-        public Task<List<Food>> GetFoods()
+        public async Task<List<Food>> GetFoods()
+            => await dbContext.Foods.ToListAsync();
+        public async Task<Food> UpdateFood(Food food)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Food> UpdateFood(Food food)
-        {
-            throw new NotImplementedException();
+            dbContext.Foods.Update(food);
+            await dbContext.SaveChangesAsync();
+            return food;
         }
     }
 }
