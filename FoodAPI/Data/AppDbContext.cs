@@ -34,6 +34,12 @@ namespace FoodAPI.Data
                 .Property(c => c.Name)
                 .HasMaxLength(30)
                 .IsRequired();
+            builder.Entity<Category>()
+                .HasData(
+                    new { Id = 1, Name = "Fast food" },
+                    new { Id = 2, Name = "Qo'yiq ovqat" },
+                    new { Id = 3, Name = "Suyuq ovqat" }
+                ) ;
             base.OnModelCreating(builder);
         }
     }
