@@ -29,8 +29,6 @@ namespace FoodAPI.Data
                 .HasForeignKey(f => f.CategoryId)
                 .IsRequired();
             builder.Entity<Category>()
-                .HasKey(c => c.Id);
-            builder.Entity<Category>()
                 .Property(c => c.Name)
                 .HasMaxLength(30)
                 .IsRequired();
