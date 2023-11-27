@@ -1,4 +1,5 @@
 ﻿using FoodAPI.Data;
+using FoodAPI.Dtos;
 using FoodAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,16 +13,25 @@ namespace FoodAPI.Services
         {
             this.dbContext = dbContext;
         }
-        public async Task<Food> CreateFood(Food newFood)
+
+        public async Task<Food> CreateFood(CreateFoodDto newFood)
         {
-            await dbContext.Foods.AddAsync(newFood);
+            var food = dbContext.Foods.Add(new Food
+            {
+                Id = Guid.NewGuid(),
+                Name = newFood.Name,
+                Price = newFood.Price,
+                Description = newFood.Description,
+                CategoryId = newFood.CategoryId
+            });
+
             await dbContext.SaveChangesAsync();
-            return newFood;
+            return await Task.FromResult(food.Entity);
         }
 
         public bool DeleteFood(Guid id)
         {
-            var food =dbContext.Foods
+            var food = dbContext.Foods
                 .FirstOrDefault(f => f.Id == id);
 
             if (food is null)
@@ -45,11 +55,22 @@ namespace FoodAPI.Services
 
         public async Task<List<Food>> GetFoods()
             => await dbContext.Foods.ToListAsync();
-        public async Task<Food> UpdateFood(Food food)
+
+        public async Task<Food> UpdateFood(Guid id, UpdateFoodDto food)
         {
-            dbContext.Foods.Update(food);
+            var updated = await dbContext.Foods
+                .FirstOrDefaultAsync(f => f.Id == id);
+
+            if (updated is null)
+                return null;
+
+            updated.Name = food.Name;
+            updated.Price = food.Price;
+            updated.Description = food.Description;
+            updated.CategoryId = food.CategoryId;
+
             await dbContext.SaveChangesAsync();
-            return food;
+            return updated;
         }
     }
 }

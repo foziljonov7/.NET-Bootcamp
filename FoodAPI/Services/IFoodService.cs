@@ -1,4 +1,5 @@
-﻿using FoodAPI.Models;
+﻿using FoodAPI.Dtos;
+using FoodAPI.Models;
 
 namespace FoodAPI.Services
 {
@@ -6,8 +7,8 @@ namespace FoodAPI.Services
     {
         Task<List<Food>> GetFoods();
         Task<Food> GetFood(Guid id);
-        Task<Food> CreateFood(Food newFood);
-        Task<Food> UpdateFood(Food food);
+        Task<Food> CreateFood(CreateFoodDto newFood);
+        Task<Food> UpdateFood(Guid id, UpdateFoodDto food);
         bool DeleteFood(Guid id);
     }
 }

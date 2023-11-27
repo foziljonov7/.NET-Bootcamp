@@ -1,4 +1,5 @@
-﻿using FoodAPI.Models;
+﻿using FoodAPI.Dtos;
+using FoodAPI.Models;
 using FoodAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,15 +30,15 @@ namespace FoodAPI.Controllers
             return Ok(request);
         }
         [HttpPost("CreateFood")]
-        public async Task<IActionResult> CreateFood(Food newFood)
+        public async Task<IActionResult> CreateFood(CreateFoodDto newFood)
         {
             var request = await service.CreateFood(newFood);
             return Ok(request);
         }
-        [HttpPut("EditFood")]
-        public async Task<IActionResult> UpdateFood(Food food)
+        [HttpPut("EditFood/{id}")]
+        public async Task<IActionResult> UpdateFood(Guid id, UpdateFoodDto food)
         {
-            var request = await service.UpdateFood(food);
+            var request = await service.UpdateFood(id, food);
             return Ok(request);
         }
         [HttpDelete("DeleteFood/{id}")]

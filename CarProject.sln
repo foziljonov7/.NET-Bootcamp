@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAPI", "CarAPI\CarAPI.csproj", "{D1083276-3374-443D-A559-D1D02164DA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAPI", "FoodAPI\FoodAPI.csproj", "{5577E630-E190-4097-8A53-5D2A140BD842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAPI", "FoodAPI\FoodAPI.csproj", "{5577E630-E190-4097-8A53-5D2A140BD842}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
