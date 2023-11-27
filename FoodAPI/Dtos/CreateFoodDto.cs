@@ -1,4 +1,4 @@
-﻿namespace FoodAPI.Dtos
+﻿ namespace FoodAPI.Dtos
 {
     public class CreateFoodDto
     {

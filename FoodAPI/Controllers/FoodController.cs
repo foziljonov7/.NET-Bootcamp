@@ -3,7 +3,7 @@ using FoodAPI.Models;
 using FoodAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;     
 
 namespace FoodAPI.Controllers
 {
@@ -27,7 +27,7 @@ namespace FoodAPI.Controllers
         public async Task<IActionResult> GetFood(Guid id)
         {
             var request = await service.GetFood(id);
-            return Ok(request);
+            return Ok(request); 
         }
         [HttpPost("CreateFood")]
         public async Task<IActionResult> CreateFood(CreateFoodDto newFood)
